@@ -1,38 +1,29 @@
 package com.dh.clinicaOdonto.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Paciente {
-    private Usuario usuario;
-    private List<Endereco> endereco = new ArrayList<>();
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Paciente extends Usuario {
+
     private String rg;
     private LocalDate dataAlta;
+    private List<Endereco> enderecos= new ArrayList<>();
 
-    public Paciente(Usuario usuario, List<Endereco> endereco, String rg) {
-        this.usuario = usuario;
-        this.endereco = endereco;
+    public Paciente(String usuario, String senha, String nome, String sobrenome, Integer idTipoUsuario, String rg, LocalDate dataAlta, List<Endereco> enderecos) {
+        super(usuario, senha, nome, sobrenome, idTipoUsuario);
         this.rg = rg;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public List<Endereco> getEndereco() {
-        return endereco;
-    }
-
-    public String getRg() {
-        return rg;
-    }
-
-    public LocalDate getDataAlta() {
-        return dataAlta;
-    }
-
-    public void setDataAlta(LocalDate dataAlta) {
         this.dataAlta = dataAlta;
+        this.enderecos = enderecos;
     }
 }

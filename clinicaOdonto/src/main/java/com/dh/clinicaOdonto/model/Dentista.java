@@ -1,19 +1,21 @@
 package com.dh.clinicaOdonto.model;
 
-public class Dentista {
-    private Usuario usuario;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Dentista extends Usuario{
+
     private int matricula;
 
-    public Dentista(Usuario usuario, int matricula) {
-        this.usuario = usuario;
+    public Dentista(String usuario, String senha, String nome, String sobrenome, Integer idTipoUsuario, int matricula) {
+        super(usuario, senha, nome, sobrenome, idTipoUsuario);
         this.matricula = matricula;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public int getMatricula() {
-        return matricula;
     }
 }
