@@ -3,30 +3,34 @@ package com.dh.clinicaOdonto.DAO.impl;
 import com.dh.clinicaOdonto.DAO.DAO;
 import com.dh.clinicaOdonto.model.Agenda;
 
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
+
 public class AgendaImpl implements DAO<Agenda> {
 
     @Override
-    public Agenda salvar(Agenda agenda) {
-        //ToDo - Criar método para salvar dados na tabela de agenda
+    public Agenda salvar(Agenda agenda) throws SQLException {
+        return null;
     }
 
     @Override
-    public void atualizar(Agenda agenda) {
-
+    public Agenda atualizar(Agenda agenda) throws SQLException {
+        return null;
     }
 
     @Override
-    public void excluir(Agenda agenda) {
-
-    }
-
-    @Override
-    public void procurar(Agenda agenda) {
+    public void excluir(Integer id) throws SQLException {
 
     }
 
     @Override
-    public void listar(Agenda agenda) {
+    public Optional<Agenda> procurar(Integer id) throws SQLException {
+        return Optional.empty();
+    }
 
+    @Override
+    public List<Agenda> listarTodos() throws SQLException {
+        return null;
     }
 }
