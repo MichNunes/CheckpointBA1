@@ -1,39 +1,52 @@
 package com.dh.clinicaOdonto.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class UsuarioEntity {
 
         @Id
         @GeneratedValue(strategy = GenerationType.SEQUENCE)
+        @Column(name="id_usuario")
         private Integer id;
+        @Column(name="usuario")
         private String usuario;
+        @Column(name="senha")
         private String senha;
+        @Column(name="nome")
         private String nome;
+        @Column(name="sobrenome")
         private String sobrenome;
-        private Integer idTipoUsuario;
+        @Column(name="is_adm")
+        private Boolean isAdm;
+
+        @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
+        @JoinColumn(name="id_tipo_usuario")
+        private TipoUsuarioEntity tipoUsuario;
+
+        @OneToOne(mappedBy = "dentista")
+        private DentistaEntity dentista;
+
+        @OneToOne(mappedBy = "paciente")
+        private PacienteEntity paciente;
 
 
-        public UsuarioEntity(Integer id, String usuario, String senha, String nome, String sobrenome, Integer idTipoUsuario) {
-                this.id = id;
-                this.usuario = usuario;
-                this.senha = senha;
-                this.nome = nome;
-                this.sobrenome = sobrenome;
-                this.idTipoUsuario = idTipoUsuario;
-        }
-
-        public UsuarioEntity(String usuario, String senha, String nome, String sobrenome, Integer idTipoUsuario) {
-                this.usuario = usuario;
-                this.senha = senha;
-                this.nome = nome;
-                this.sobrenome = sobrenome;
-                this.idTipoUsuario = idTipoUsuario;
-        }
+//        public UsuarioEntity(Integer id, String usuario, String senha, String nome, String sobrenome, Integer idTipoUsuario) {
+//                this.id = id;
+//                this.usuario = usuario;
+//                this.senha = senha;
+//                this.nome = nome;
+//                this.sobrenome = sobrenome;
+//                this.idTipoUsuario = idTipoUsuario;
+//        }
+//
+//        public UsuarioEntity(String usuario, String senha, String nome, String sobrenome, Integer idTipoUsuario) {
+//                this.usuario = usuario;
+//                this.senha = senha;
+//                this.nome = nome;
+//                this.sobrenome = sobrenome;
+//                this.idTipoUsuario = idTipoUsuario;
+//        }
 
         public UsuarioEntity() {
         }
@@ -76,13 +89,5 @@ public class UsuarioEntity {
 
         public void setSobrenome(String sobrenome) {
                 this.sobrenome = sobrenome;
-        }
-
-        public Integer getIdTipoUsuario() {
-                return idTipoUsuario;
-        }
-
-        public void setIdTipoUsuario(Integer idTipoUsuario) {
-                this.idTipoUsuario = idTipoUsuario;
         }
 }

@@ -1,4 +1,4 @@
-package com.dh.clinicaOdonto.model;
+package com.dh.clinicaOdonto.ideiasAbandonadas.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

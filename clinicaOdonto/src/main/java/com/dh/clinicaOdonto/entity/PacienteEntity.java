@@ -1,38 +1,48 @@
 package com.dh.clinicaOdonto.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name="paciente")
 public class PacienteEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    @Column(name="id_paciente")
+    private Long id;
+    @Column(name="rg")
     private String rg;
+    @Column(name="data_alta")
     private LocalDate dataAlta;
 
-    public PacienteEntity(Integer id, String rg, LocalDate dataAlta) {
-        this.id = id;
-        this.rg = rg;
-        this.dataAlta = dataAlta;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="fk_usuario", referencedColumnName="id_usuario")
+    private UsuarioEntity usuario;
 
-    public PacienteEntity(String rg, LocalDate dataAlta) {
-        this.rg = rg;
-        this.dataAlta = dataAlta;
-    }
+    @OneToMany(mappedBy = "paciente")
+    private Set<AgendaEntity> agenda = new HashSet<>();
+
+//    public PacienteEntity(Integer id, String rg, LocalDate dataAlta) {
+//        this.id = id;
+//        this.rg = rg;
+//        this.dataAlta = dataAlta;
+//    }
+//
+//    public PacienteEntity(String rg, LocalDate dataAlta) {
+//        this.rg = rg;
+//        this.dataAlta = dataAlta;
+//    }
 
     public PacienteEntity() {
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

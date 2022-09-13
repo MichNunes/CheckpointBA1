@@ -1,4 +1,4 @@
-package com.dh.clinicaOdonto.DAO;
+package com.dh.clinicaOdonto.ideiasAbandonadas.DAO;
 
 import java.sql.SQLException;
 import java.util.List;

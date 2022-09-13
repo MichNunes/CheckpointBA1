@@ -1,8 +1,8 @@
-package com.dh.clinicaOdonto.DAO.impl;
+package com.dh.clinicaOdonto.ideiasAbandonadas.DAO.impl;
 
-import com.dh.clinicaOdonto.DAO.ConfiguracaoJDBC;
-import com.dh.clinicaOdonto.DAO.DAO;
-import com.dh.clinicaOdonto.model.Usuario;
+import com.dh.clinicaOdonto.ideiasAbandonadas.DAO.ConfiguracaoJDBC;
+import com.dh.clinicaOdonto.ideiasAbandonadas.DAO.DAO;
+import com.dh.clinicaOdonto.ideiasAbandonadas.model.Usuario;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;

@@ -1,7 +1,7 @@
-package com.dh.clinicaOdonto.DAO.impl;
+package com.dh.clinicaOdonto.ideiasAbandonadas.DAO.impl;
 
-import com.dh.clinicaOdonto.DAO.DAO;
-import com.dh.clinicaOdonto.model.Endereco;
+import com.dh.clinicaOdonto.ideiasAbandonadas.DAO.DAO;
+import com.dh.clinicaOdonto.ideiasAbandonadas.model.Endereco;
 
 import java.sql.SQLException;
 import java.util.List;

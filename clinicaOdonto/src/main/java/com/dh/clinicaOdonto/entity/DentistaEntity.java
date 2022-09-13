@@ -1,49 +1,47 @@
 package com.dh.clinicaOdonto.entity;
 
-import com.dh.clinicaOdonto.model.Usuario;
+import com.dh.clinicaOdonto.ideiasAbandonadas.model.Usuario;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name="Dentista")
 public class DentistaEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
-    private Integer idUsuario;
+    @Column(name="id_dentista")
+    private Long id;
     private Integer matricula;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="fk_usuario", referencedColumnName = "id_usuario")
+    private Usuario usuario;
 
-    public DentistaEntity(Integer id, Integer idUsuario, Integer matricula) {
-        this.id = id;
-        this.idUsuario = idUsuario;
-        this.matricula = matricula;
-    }
+    @OneToMany(mappedBy = "dentista_agenda")
+    private Set<AgendaEntity> agenda = new HashSet<>();
 
-    public DentistaEntity(Integer idUsuario, Integer matricula) {
-        this.idUsuario = idUsuario;
-        this.matricula = matricula;
-    }
+//    public DentistaEntity(Integer id, Integer idUsuario, Integer matricula) {
+//        this.id = id;
+//        this.idUsuario = idUsuario;
+//        this.matricula = matricula;
+//    }
+//
+//    public DentistaEntity(Integer idUsuario, Integer matricula) {
+//        this.idUsuario = idUsuario;
+//        this.matricula = matricula;
+//    }
 
     public DentistaEntity() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
     }
 
     public Integer getMatricula() {
@@ -52,5 +50,13 @@ public class DentistaEntity{
 
     public void setMatricula(Integer matricula) {
         this.matricula = matricula;
+    }
+
+    public Set<AgendaEntity> getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(Set<AgendaEntity> agenda) {
+        this.agenda = agenda;
     }
 }

@@ -1,59 +1,49 @@
 package com.dh.clinicaOdonto.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name="Agenda")
 public class AgendaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
-    private Integer idDentista;
-    private Integer idPaciente;
+    @Column(name = "id_agenda")
+    private Long id;
+    @Column(name="data_consulta")
     private LocalDate dataConsulta;
 
-    public AgendaEntity(Integer id, Integer idDentista, Integer idPaciente, LocalDate dataConsulta) {
-        this.id = id;
-        this.idDentista = idDentista;
-        this.idPaciente = idPaciente;
-        this.dataConsulta = dataConsulta;
-    }
+    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name="id_dentista")
+    private DentistaEntity dentista;
 
-    public AgendaEntity(Integer idDentista, Integer idPaciente, LocalDate dataConsulta) {
-        this.idDentista = idDentista;
-        this.idPaciente = idPaciente;
-        this.dataConsulta = dataConsulta;
-    }
+    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name="id_paciente")
+    private PacienteEntity paciente;
+
+//    public AgendaEntity(Integer id, Integer idDentista, Integer idPaciente, LocalDate dataConsulta) {
+//        this.id = id;
+//        this.idDentista = idDentista;
+//        this.idPaciente = idPaciente;
+//        this.dataConsulta = dataConsulta;
+//    }
+//
+//    public AgendaEntity(LocalDate dataConsulta, DentistaEntity dentista, PacienteEntity paciente) {
+//        this.dentista = dentista;
+//        this.paciente = paciente;
+//        this.dataConsulta = dataConsulta;
+//    }
 
     public AgendaEntity() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdDentista() {
-        return idDentista;
-    }
-
-    public void setIdDentista(Integer idDentista) {
-        this.idDentista = idDentista;
-    }
-
-    public Integer getIdPaciente() {
-        return idPaciente;
-    }
-
-    public void setIdPaciente(Integer idPaciente) {
-        this.idPaciente = idPaciente;
     }
 
     public LocalDate getDataConsulta() {

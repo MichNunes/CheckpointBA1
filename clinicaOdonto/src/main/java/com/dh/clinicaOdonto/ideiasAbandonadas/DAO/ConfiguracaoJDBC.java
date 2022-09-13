@@ -1,4 +1,4 @@
-package com.dh.clinicaOdonto.DAO;
+package com.dh.clinicaOdonto.ideiasAbandonadas.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

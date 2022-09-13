@@ -1,25 +1,35 @@
 package com.dh.clinicaOdonto.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.dh.clinicaOdonto.entity.UsuarioEntity;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
+@Table(name="tipo_usuario")
 public class TipoUsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name="id_tipo_usuario")
     private Integer id;
+
+    @Column(name = "tipo_usuario")
     private String tipoUsuario;
 
-    public TipoUsuarioEntity(Integer id, String tipoUsuario) {
-        this.id = id;
-        this.tipoUsuario = tipoUsuario;
-    }
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "tipoUsuario")
+    @JoinColumn(name="id_usuario")
+    private Set<UsuarioEntity> usuarios = new HashSet<>();
 
-    public TipoUsuarioEntity(String tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-    }
+//    public TipoUsuarioEntity(Integer id, String tipoUsuario) {
+//        this.id = id;
+//        this.tipoUsuario = tipoUsuario;
+//    }
+//
+//    public TipoUsuarioEntity(String tipoUsuario) {
+//        this.tipoUsuario = tipoUsuario;
+//    }
 
     public TipoUsuarioEntity() {
     }
