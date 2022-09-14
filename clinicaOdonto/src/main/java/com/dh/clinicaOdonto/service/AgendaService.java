@@ -7,6 +7,7 @@ import com.dh.clinicaOdonto.repository.IAgendaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class AgendaService {
@@ -22,5 +23,9 @@ public class AgendaService {
             return (AgendaEntity) agendaRepository.save(agenda);
         }
         return new AgendaEntity();
+    }
+
+    public List<AgendaEntity> listarConsultas(){
+        return agendaRepository.findAll();
     }
 }

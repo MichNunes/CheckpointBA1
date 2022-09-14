@@ -13,13 +13,12 @@ public class TipoUsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="id_tipo_usuario")
-    private Integer id;
+    private Long idTipoUsuario;
 
     @Column(name = "tipo_usuario")
     private String tipoUsuario;
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy = "tipoUsuario")
-    @JoinColumn(name="id_usuario")
+    @OneToMany(mappedBy = "tipoUsuario")
     private Set<UsuarioEntity> usuarios = new HashSet<>();
 
 //    public TipoUsuarioEntity(Integer id, String tipoUsuario) {
@@ -34,12 +33,12 @@ public class TipoUsuarioEntity {
     public TipoUsuarioEntity() {
     }
 
-    public Integer getId() {
-        return id;
+    public Long getId() {
+        return idTipoUsuario;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Long id) {
+        this.idTipoUsuario = id;
     }
 
     public String getTipoUsuario() {

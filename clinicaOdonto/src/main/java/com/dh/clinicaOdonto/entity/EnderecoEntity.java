@@ -6,12 +6,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name="endereco")
 public class EnderecoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_endereco")
-    private Long id;
+    private Long idEndereco;
     @Column(name="rua")
     private String rua;
     @Column(name="numero")
@@ -55,11 +56,11 @@ public class EnderecoEntity {
     }
 
     public Long getId() {
-        return id;
+        return idEndereco;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.idEndereco = id;
     }
 
     public String getRua() {

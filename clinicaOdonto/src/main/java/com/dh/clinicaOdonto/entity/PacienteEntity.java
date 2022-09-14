@@ -9,9 +9,9 @@ import java.util.Set;
 @Table(name="paciente")
 public class PacienteEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_paciente")
-    private Long id;
+    private Long idPaciente;
     @Column(name="rg")
     private String rg;
     @Column(name="data_alta")
@@ -19,9 +19,9 @@ public class PacienteEntity{
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="fk_usuario", referencedColumnName="id_usuario")
-    private UsuarioEntity usuario;
+    private UsuarioEntity fk_usuario_paciente;
 
-    @OneToMany(mappedBy = "paciente")
+    @OneToMany(mappedBy = "pacienteEntity")
     private Set<AgendaEntity> agenda = new HashSet<>();
 
 //    public PacienteEntity(Integer id, String rg, LocalDate dataAlta) {
@@ -39,11 +39,11 @@ public class PacienteEntity{
     }
 
     public long getId() {
-        return id;
+        return idPaciente;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.idPaciente = id;
     }
 
     public String getRg() {

@@ -4,23 +4,23 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="Agenda")
+@Table(name="agenda")
 public class AgendaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_agenda")
-    private Long id;
+    private Long idAgenda;
     @Column(name="data_consulta")
     private LocalDate dataConsulta;
 
     @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name="id_dentista")
-    private DentistaEntity dentista;
+    @JoinColumn(name="fk_dentista")
+    private DentistaEntity dentistaEntity;
 
     @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name="id_paciente")
-    private PacienteEntity paciente;
+    @JoinColumn(name="fk_paciente")
+    private PacienteEntity pacienteEntity;
 
 //    public AgendaEntity(Integer id, Integer idDentista, Integer idPaciente, LocalDate dataConsulta) {
 //        this.id = id;
@@ -39,11 +39,11 @@ public class AgendaEntity {
     }
 
     public Long getId() {
-        return id;
+        return idAgenda;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.idAgenda = id;
     }
 
     public LocalDate getDataConsulta() {

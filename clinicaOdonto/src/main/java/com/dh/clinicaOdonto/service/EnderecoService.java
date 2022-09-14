@@ -1,21 +1,18 @@
 package com.dh.clinicaOdonto.service;
 
-import com.dh.clinicaOdonto.entity.AgendaEntity;
-import com.dh.clinicaOdonto.entity.DentistaEntity;
 import com.dh.clinicaOdonto.entity.EnderecoEntity;
 import com.dh.clinicaOdonto.entity.PacienteEntity;
-import com.dh.clinicaOdonto.repository.IAgendaRepository;
 import com.dh.clinicaOdonto.repository.IEnderecoRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Service
-public class EnderecoSerivce {
+public class EnderecoService {
 
     private final IEnderecoRepository enderecoRepository;
 
-    public EnderecoSerivce (IEnderecoRepository enderecoRepository){
+    public EnderecoService(IEnderecoRepository enderecoRepository){
         this.enderecoRepository = enderecoRepository;
     }
 
@@ -24,5 +21,9 @@ public class EnderecoSerivce {
             return (EnderecoEntity) enderecoRepository.save(endereco);
         }
         return new EnderecoEntity();
+    }
+
+    public List<EnderecoEntity> listarEnderecos(){
+        return enderecoRepository.findAll();
     }
 }

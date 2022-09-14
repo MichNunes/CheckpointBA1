@@ -3,12 +3,13 @@ package com.dh.clinicaOdonto.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name="usuario")
 public class UsuarioEntity {
 
         @Id
-        @GeneratedValue(strategy = GenerationType.SEQUENCE)
+        @GeneratedValue(strategy = GenerationType.AUTO)
         @Column(name="id_usuario")
-        private Integer id;
+        private Long idUsuario;
         @Column(name="usuario")
         private String usuario;
         @Column(name="senha")
@@ -24,10 +25,10 @@ public class UsuarioEntity {
         @JoinColumn(name="id_tipo_usuario")
         private TipoUsuarioEntity tipoUsuario;
 
-        @OneToOne(mappedBy = "dentista")
+        @OneToOne(mappedBy = "fk_usuario_dentista")
         private DentistaEntity dentista;
 
-        @OneToOne(mappedBy = "paciente")
+        @OneToOne(mappedBy = "fk_usuario_paciente")
         private PacienteEntity paciente;
 
 
@@ -51,12 +52,12 @@ public class UsuarioEntity {
         public UsuarioEntity() {
         }
 
-        public Integer getId() {
-                return id;
+        public Long getId() {
+                return idUsuario;
         }
 
-        public void setId(Integer id) {
-                this.id = id;
+        public void setId(Long id) {
+                this.idUsuario = id;
         }
 
         public String getUsuario() {

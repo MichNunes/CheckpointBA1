@@ -1,25 +1,23 @@
 package com.dh.clinicaOdonto.entity;
 
-import com.dh.clinicaOdonto.ideiasAbandonadas.model.Usuario;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="Dentista")
+@Table(name="dentista")
 public class DentistaEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_dentista")
-    private Long id;
+    private Long idDentista;
     private Integer matricula;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="fk_usuario", referencedColumnName = "id_usuario")
-    private Usuario usuario;
+    private UsuarioEntity fk_usuario_dentista;
 
-    @OneToMany(mappedBy = "dentista_agenda")
+    @OneToMany(mappedBy = "dentistaEntity")
     private Set<AgendaEntity> agenda = new HashSet<>();
 
 //    public DentistaEntity(Integer id, Integer idUsuario, Integer matricula) {
@@ -37,11 +35,11 @@ public class DentistaEntity{
     }
 
     public Long getId() {
-        return id;
+        return idDentista;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.idDentista = id;
     }
 
     public Integer getMatricula() {
