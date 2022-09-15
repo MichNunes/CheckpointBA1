@@ -11,56 +11,35 @@ public class EnderecoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id_endereco")
-    private Long idEndereco;
-    @Column(name="rua")
+    private Long id;
     private String rua;
-    @Column(name="numero")
     private Integer numero;
-    @Column(name="bairro")
     private String bairro;
-    @Column(name="cidade")
     private String cidade;
-    @Column(name="estado")
     private String estado;
-    @Column(name="cep")
     private Integer cep;
-
     @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name="id_paciente")
+    @JoinColumn(name="paciente")
     private PacienteEntity paciente;
 
-
-//    public EnderecoEntity(Integer id, String rua, Integer numero, String bairro, String cidade, String estado, Integer cep, Integer idUsuario) {
-//        this.id = id;
-//        this.rua = rua;
-//        this.numero = numero;
-//        this.bairro = bairro;
-//        this.cidade = cidade;
-//        this.estado = estado;
-//        this.cep = cep;
-//        this.idUsuario = idUsuario;
-//    }
-//
-//    public EnderecoEntity(String rua, Integer numero, String bairro, String cidade, String estado, Integer cep, Integer idUsuario) {
-//        this.rua = rua;
-//        this.numero = numero;
-//        this.bairro = bairro;
-//        this.cidade = cidade;
-//        this.estado = estado;
-//        this.cep = cep;
-//        this.idUsuario = idUsuario;
-//    }
+    public EnderecoEntity(String rua, Integer numero, String bairro, String cidade, String estado, Integer cep) {
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.cep = cep;
+    }
 
     public EnderecoEntity() {
     }
 
     public Long getId() {
-        return idEndereco;
+        return id;
     }
 
     public void setId(Long id) {
-        this.idEndereco = id;
+        this.id = id;
     }
 
     public String getRua() {
@@ -111,4 +90,11 @@ public class EnderecoEntity {
         this.cep = cep;
     }
 
+    public PacienteEntity getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(PacienteEntity paciente) {
+        this.paciente = paciente;
+    }
 }

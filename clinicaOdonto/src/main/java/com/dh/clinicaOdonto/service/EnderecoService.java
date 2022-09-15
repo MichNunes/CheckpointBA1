@@ -26,4 +26,8 @@ public class EnderecoService {
     public List<EnderecoEntity> listarEnderecos(){
         return enderecoRepository.findAll();
     }
+
+    public EnderecoEntity atualizarEndereco(EnderecoEntity endereco){
+        return enderecoRepository.saveAndFlush(endereco);
+    }
 }

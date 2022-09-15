@@ -1,49 +1,43 @@
 package com.dh.clinicaOdonto.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name="paciente")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PacienteEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id_paciente")
-    private Long idPaciente;
+    private Long id;
     @Column(name="rg")
     private String rg;
     @Column(name="data_alta")
     private LocalDate dataAlta;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_usuario", referencedColumnName="id_usuario")
-    private UsuarioEntity fk_usuario_paciente;
-
-    @OneToMany(mappedBy = "pacienteEntity")
-    private Set<AgendaEntity> agenda = new HashSet<>();
-
-//    public PacienteEntity(Integer id, String rg, LocalDate dataAlta) {
-//        this.id = id;
-//        this.rg = rg;
-//        this.dataAlta = dataAlta;
-//    }
-//
-//    public PacienteEntity(String rg, LocalDate dataAlta) {
-//        this.rg = rg;
-//        this.dataAlta = dataAlta;
-//    }
+//    @OneToMany(mappedBy = "paciente")
+//    private Set<AgendaEntity> agenda = new HashSet<>();
 
     public PacienteEntity() {
     }
 
-    public long getId() {
-        return idPaciente;
+    public PacienteEntity(Long id) {
+        this.id = id;
+    }
+
+    public PacienteEntity(Long id, String rg, LocalDate dataAlta) {
+        this.id = id;
+        this.rg = rg;
+        this.dataAlta = dataAlta;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
-        this.idPaciente = id;
+        this.id = id;
     }
 
     public String getRg() {
@@ -61,4 +55,12 @@ public class PacienteEntity{
     public void setDataAlta(LocalDate dataAlta) {
         this.dataAlta = dataAlta;
     }
+
+//    public Set<AgendaEntity> getAgenda() {
+//        return agenda;
+//    }
+//
+//    public void setAgenda(Set<AgendaEntity> agenda) {
+//        this.agenda = agenda;
+//    }
 }

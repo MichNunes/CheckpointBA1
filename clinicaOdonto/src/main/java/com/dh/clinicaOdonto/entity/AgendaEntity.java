@@ -6,21 +6,19 @@ import java.time.LocalDate;
 @Entity
 @Table(name="agenda")
 public class AgendaEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id_agenda")
-    private Long idAgenda;
+    private Long id;
     @Column(name="data_consulta")
     private LocalDate dataConsulta;
 
     @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name="fk_dentista")
-    private DentistaEntity dentistaEntity;
+    @JoinColumn(name="dentista")
+    private DentistaEntity dentista;
 
     @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name="fk_paciente")
-    private PacienteEntity pacienteEntity;
+    @JoinColumn(name="paciente")
+    private PacienteEntity paciente;
 
 //    public AgendaEntity(Integer id, Integer idDentista, Integer idPaciente, LocalDate dataConsulta) {
 //        this.id = id;
@@ -39,11 +37,11 @@ public class AgendaEntity {
     }
 
     public Long getId() {
-        return idAgenda;
+        return id;
     }
 
     public void setId(Long id) {
-        this.idAgenda = id;
+        this.id = id;
     }
 
     public LocalDate getDataConsulta() {
@@ -52,5 +50,13 @@ public class AgendaEntity {
 
     public void setDataConsulta(LocalDate dataConsulta) {
         this.dataConsulta = dataConsulta;
+    }
+
+    public DentistaEntity getDentista() {
+        return dentista;
+    }
+
+    public PacienteEntity getPaciente() {
+        return paciente;
     }
 }

@@ -1,5 +1,7 @@
 package com.dh.clinicaOdonto.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,56 +10,31 @@ public class UsuarioEntity {
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        @Column(name="id_usuario")
-        private Long idUsuario;
-        @Column(name="usuario")
+        private Long id;
         private String usuario;
-        @Column(name="senha")
         private String senha;
-        @Column(name="nome")
         private String nome;
-        @Column(name="sobrenome")
         private String sobrenome;
         @Column(name="is_adm")
         private Boolean isAdm;
 
-        @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
-        @JoinColumn(name="id_tipo_usuario")
-        private TipoUsuarioEntity tipoUsuario;
-
-        @OneToOne(mappedBy = "fk_usuario_dentista")
+        @OneToOne
+        @Cascade(org.hibernate.annotations.CascadeType.ALL)
         private DentistaEntity dentista;
 
-        @OneToOne(mappedBy = "fk_usuario_paciente")
+        @OneToOne
+        @Cascade(org.hibernate.annotations.CascadeType.ALL)
         private PacienteEntity paciente;
-
-
-//        public UsuarioEntity(Integer id, String usuario, String senha, String nome, String sobrenome, Integer idTipoUsuario) {
-//                this.id = id;
-//                this.usuario = usuario;
-//                this.senha = senha;
-//                this.nome = nome;
-//                this.sobrenome = sobrenome;
-//                this.idTipoUsuario = idTipoUsuario;
-//        }
-//
-//        public UsuarioEntity(String usuario, String senha, String nome, String sobrenome, Integer idTipoUsuario) {
-//                this.usuario = usuario;
-//                this.senha = senha;
-//                this.nome = nome;
-//                this.sobrenome = sobrenome;
-//                this.idTipoUsuario = idTipoUsuario;
-//        }
 
         public UsuarioEntity() {
         }
 
         public Long getId() {
-                return idUsuario;
+                return id;
         }
 
         public void setId(Long id) {
-                this.idUsuario = id;
+                this.id = id;
         }
 
         public String getUsuario() {
@@ -90,5 +67,29 @@ public class UsuarioEntity {
 
         public void setSobrenome(String sobrenome) {
                 this.sobrenome = sobrenome;
+        }
+
+        public Boolean getAdm() {
+                return isAdm;
+        }
+
+        public void setAdm(Boolean adm) {
+                isAdm = adm;
+        }
+
+        public DentistaEntity getDentista() {
+                return dentista;
+        }
+
+        public void setDentista(DentistaEntity dentista) {
+                this.dentista = dentista;
+        }
+
+        public PacienteEntity getPaciente() {
+                return paciente;
+        }
+
+        public void setPaciente(PacienteEntity paciente) {
+                this.paciente = paciente;
         }
 }
