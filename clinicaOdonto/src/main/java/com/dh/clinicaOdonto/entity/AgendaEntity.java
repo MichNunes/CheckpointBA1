@@ -12,12 +12,12 @@ public class AgendaEntity {
     @Column(name="data_consulta")
     private LocalDate dataConsulta;
 
-    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name="dentista")
+    @ManyToOne(fetch=FetchType.LAZY)
+//    @JoinColumn(name="dentista")
     private DentistaEntity dentista;
 
-    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name="paciente")
+    @ManyToOne(fetch=FetchType.LAZY)
+//    @JoinColumn(name="paciente")
     private PacienteEntity paciente;
 
 //    public AgendaEntity(Integer id, Integer idDentista, Integer idPaciente, LocalDate dataConsulta) {
