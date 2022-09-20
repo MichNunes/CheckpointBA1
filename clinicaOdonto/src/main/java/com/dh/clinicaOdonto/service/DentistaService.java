@@ -1,24 +1,16 @@
 package com.dh.clinicaOdonto.service;
 
-import com.dh.clinicaOdonto.controller.dto.DentistaDTO;
-import com.dh.clinicaOdonto.controller.dto.PacienteDTO;
 import com.dh.clinicaOdonto.entity.DentistaEntity;
-import com.dh.clinicaOdonto.entity.EnderecoEntity;
-import com.dh.clinicaOdonto.entity.PacienteEntity;
-import com.dh.clinicaOdonto.entity.UsuarioEntity;
-import com.dh.clinicaOdonto.repository.IAgendaRepository;
 import com.dh.clinicaOdonto.repository.IDentistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
 public class DentistaService {
+    private static Logger logger = Logger.getLogger(String.valueOf(DentistaService.class));
     private final IDentistaRepository dentistaRepository;
     @Autowired
     public DentistaService (IDentistaRepository dentistaRepository){
@@ -27,9 +19,10 @@ public class DentistaService {
 
     public DentistaEntity addDentista(DentistaEntity dentista){
         if(dentista != null){
+            logger.info("Verificando se o dentista foi cadastrado.");
             return (DentistaEntity) dentistaRepository.save(dentista);
         }
-
+        logger.info("Novo dentista cadastrado");
         return new DentistaEntity();
     }
 

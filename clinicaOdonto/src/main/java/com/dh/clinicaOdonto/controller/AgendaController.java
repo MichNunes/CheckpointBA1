@@ -17,7 +17,7 @@ public class AgendaController {
 
     @PostMapping("adicionar")
     @Transactional
-    public AgendaEntity addAgenda (@RequestBody AgendaEntity agenda){
+        public AgendaEntity addAgenda (@RequestBody AgendaEntity agenda){
         return agendaService.agendarConsulta(agenda);
     }
 
