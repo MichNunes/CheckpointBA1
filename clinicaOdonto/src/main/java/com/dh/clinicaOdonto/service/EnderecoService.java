@@ -27,7 +27,12 @@ public class EnderecoService {
         return enderecoRepository.findAll();
     }
 
-    public EnderecoEntity atualizarEndereco(EnderecoEntity endereco){
+    public EnderecoEntity alterarEndereco(EnderecoEntity endereco){
         return enderecoRepository.saveAndFlush(endereco);
     }
+
+    public void excluirEndereco(Long id){enderecoRepository.deleteById(id);}
+
+
+
 }

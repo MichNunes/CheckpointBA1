@@ -1,7 +1,5 @@
 package com.dh.clinicaOdonto.service;
 
-import com.dh.clinicaOdonto.controller.UsuarioController;
-import com.dh.clinicaOdonto.entity.PacienteEntity;
 import com.dh.clinicaOdonto.entity.UsuarioEntity;
 import com.dh.clinicaOdonto.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +25,11 @@ public class UsuarioService {
 
     public List<UsuarioEntity> listarUsuarios(){
         return usuarioRepository.findAll();
+    }
+
+    public void excluirUsuario(Long id){usuarioRepository.deleteById(id);}
+
+    public UsuarioEntity alterarUsuario(UsuarioEntity usuario){
+        return usuarioRepository.saveAndFlush(usuario);
     }
 }

@@ -2,9 +2,8 @@ package com.dh.clinicaOdonto.controller;
 
 import com.dh.clinicaOdonto.controller.dto.EnderecoDTO;
 import com.dh.clinicaOdonto.entity.EnderecoEntity;
-import com.dh.clinicaOdonto.entity.UsuarioEntity;
+import com.dh.clinicaOdonto.entity.PacienteEntity;
 import com.dh.clinicaOdonto.service.EnderecoService;
-import com.dh.clinicaOdonto.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +30,13 @@ public class EnderecoController {
 
     @PutMapping("alterar")
     public EnderecoEntity alterarEndereco(@RequestBody EnderecoDTO endereco){
-        return enderecoService.atualizarEndereco(endereco.toEntity());
+        return enderecoService.alterarEndereco(endereco.toEntity());
     }
+
+    @DeleteMapping("{id}/excluir")
+    public void excluirEndereco(@PathVariable Long id){
+        enderecoService.excluirEndereco(id);
+    }
+
+
 }

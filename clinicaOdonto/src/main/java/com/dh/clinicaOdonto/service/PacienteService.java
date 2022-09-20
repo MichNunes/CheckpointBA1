@@ -1,10 +1,9 @@
 package com.dh.clinicaOdonto.service;
 
-import com.dh.clinicaOdonto.entity.AgendaEntity;
+import com.dh.clinicaOdonto.controller.dto.PacienteDTO;
 import com.dh.clinicaOdonto.entity.PacienteEntity;
-import com.dh.clinicaOdonto.repository.IAgendaRepository;
+import com.dh.clinicaOdonto.entity.UsuarioEntity;
 import com.dh.clinicaOdonto.repository.IPacienteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,5 +26,13 @@ public class PacienteService {
 
     public List<PacienteEntity> listarPacientes(){
         return pacienteRepository.findAll();
+    }
+
+    public void excluirPaciente(Long id){
+        pacienteRepository.deleteById(id);
+    }
+
+    public PacienteEntity alterarPaciente(PacienteEntity paciente){
+        return pacienteRepository.saveAndFlush(paciente);
     }
 }

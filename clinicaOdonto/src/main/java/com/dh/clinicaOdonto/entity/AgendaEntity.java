@@ -36,6 +36,13 @@ public class AgendaEntity {
     public AgendaEntity() {
     }
 
+    public AgendaEntity(Long id, LocalDate dataConsulta, DentistaEntity dentista, PacienteEntity paciente) {
+        this.id = id;
+        this.dataConsulta = dataConsulta;
+        this.dentista = dentista;
+        this.paciente = paciente;
+    }
+
     public Long getId() {
         return id;
     }
