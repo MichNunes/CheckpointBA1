@@ -26,9 +26,21 @@ public class DentistaService {
         return new DentistaEntity();
     }
 
+
     public List<DentistaEntity> listarDentista(){
         return dentistaRepository.findAll();
     }
+
+    public void excluirDentista(Long id){
+        dentistaRepository.deleteById(id);
+    }
+
+    public DentistaEntity alterarDentista(DentistaEntity dentista){
+        return dentistaRepository.saveAndFlush(dentista);
+    }
+
+
+
 
 
 }

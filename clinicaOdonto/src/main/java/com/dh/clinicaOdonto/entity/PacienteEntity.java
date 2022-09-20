@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name="paciente")
@@ -18,14 +16,17 @@ public class PacienteEntity{
     private String rg;
     @Column(name="data_alta")
     private LocalDate dataAlta;
-//    @OneToMany(mappedBy = "paciente")
-//    private Set<AgendaEntity> agenda = new HashSet<>();
 
     public PacienteEntity() {
     }
 
     public PacienteEntity(Long id) {
         this.id = id;
+    }
+
+    public PacienteEntity(Long id, String rg) {
+        this.id = id;
+        this.rg = rg;
     }
 
     public PacienteEntity(Long id, String rg, LocalDate dataAlta) {

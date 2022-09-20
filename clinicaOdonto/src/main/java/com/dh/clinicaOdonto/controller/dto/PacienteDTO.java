@@ -1,5 +1,7 @@
 package com.dh.clinicaOdonto.controller.dto;
 
+import com.dh.clinicaOdonto.entity.PacienteEntity;
+
 public class PacienteDTO {
     private String rg;
     private Long idUsuario;
@@ -18,5 +20,9 @@ public class PacienteDTO {
 
     public String getRg() {
         return rg;
+    }
+
+    public PacienteEntity toEntity(){
+        return new PacienteEntity(this.idUsuario, this.rg);
     }
 }
