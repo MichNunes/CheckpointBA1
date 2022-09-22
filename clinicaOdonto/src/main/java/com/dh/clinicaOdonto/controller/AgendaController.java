@@ -28,6 +28,7 @@ public class AgendaController {
 
     @DeleteMapping("{id}/excluir")
     public void excluirAgenda(@PathVariable Long id){
-        agendaService.excluirAgenda(id);}
+        agendaService.excluirAgenda(id);
+    }
 
 }

@@ -11,6 +11,7 @@ public class UsuarioEntity {
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         private Long id;
+        @Column(unique=true, nullable = false)
         private String usuario;
         private String senha;
         private String nome;
@@ -27,6 +28,14 @@ public class UsuarioEntity {
         private PacienteEntity paciente;
 
         public UsuarioEntity() {
+        }
+
+        public UsuarioEntity(String usuario, String senha, String nome, String sobrenome, Boolean isAdm) {
+                this.usuario = usuario;
+                this.senha = senha;
+                this.nome = nome;
+                this.sobrenome = sobrenome;
+                this.isAdm = isAdm;
         }
 
         public Long getId() {

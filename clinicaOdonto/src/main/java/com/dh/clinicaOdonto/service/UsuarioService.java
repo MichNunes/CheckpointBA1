@@ -1,8 +1,10 @@
 package com.dh.clinicaOdonto.service;
 
+import com.dh.clinicaOdonto.controller.dto.UsuarioDTO;
 import com.dh.clinicaOdonto.entity.UsuarioEntity;
 import com.dh.clinicaOdonto.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +19,11 @@ public class UsuarioService {
     @Autowired
     public UsuarioService (IUsuarioRepository usuarioRepository){this.usuarioRepository = usuarioRepository;}
 
-    public UsuarioEntity addUsuario (UsuarioEntity usuario){
+    public String addUsuario (UsuarioDTO usuario){
         if(usuario != null){
             logger.info("Verificando se usuario já esta cadastrado");
-            return (UsuarioEntity) usuarioRepository.save(usuario);
+            usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
+            return (UsuarioEntity) usuarioRepository.save(usuario.toEntity()).getId();
         }
         logger.info("New usuario");
         return new UsuarioEntity();

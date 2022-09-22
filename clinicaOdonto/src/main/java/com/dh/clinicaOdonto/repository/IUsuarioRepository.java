@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface IUsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
+    Optional<UsuarioEntity> findByUsuario(UsuarioEntity usuario);
     Optional<UsuarioEntity> findByPaciente(PacienteEntity paciente);
     Optional<UsuarioEntity> findByDentista(DentistaEntity dentista);
 }

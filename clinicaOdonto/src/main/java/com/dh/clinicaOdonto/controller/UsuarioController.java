@@ -1,9 +1,11 @@
 package com.dh.clinicaOdonto.controller;
 
+import com.dh.clinicaOdonto.controller.dto.UsuarioDTO;
 import com.dh.clinicaOdonto.entity.UsuarioEntity;
 import com.dh.clinicaOdonto.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -16,7 +18,7 @@ public class UsuarioController {
     }
 
     @PostMapping("adicionar")
-    public UsuarioEntity adicionarUsuario(@RequestBody UsuarioEntity usuario){
+    public String adicionarUsuario(@RequestBody UsuarioDTO usuario){
         return usuarioService.addUsuario(usuario);
     }
 
