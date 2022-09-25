@@ -1,22 +1,27 @@
 package com.dh.clinicaOdonto.entity;
 
 import org.hibernate.annotations.Cascade;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @Table(name="usuario")
-public class UsuarioEntity {
+public class UsuarioEntity implements UserDetails {
 
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
         private String usuario;
         private String senha;
         private String nome;
         private String sobrenome;
-        @Column(name="is_adm")
-        private Boolean isAdm;
+        @Enumerated(EnumType.STRING)
+        private UsuarioRoles nivel;
 
         @OneToOne
         @Cascade(org.hibernate.annotations.CascadeType.ALL)
@@ -27,6 +32,14 @@ public class UsuarioEntity {
         private PacienteEntity paciente;
 
         public UsuarioEntity() {
+        }
+
+        public UsuarioEntity(String usuario, String senha, String nome, String sobrenome, UsuarioRoles nivel) {
+                this.usuario = usuario;
+                this.senha = senha;
+                this.nome = nome;
+                this.sobrenome = sobrenome;
+                this.nivel = nivel;
         }
 
         public Long getId() {
@@ -69,12 +82,12 @@ public class UsuarioEntity {
                 this.sobrenome = sobrenome;
         }
 
-        public Boolean getAdm() {
-                return isAdm;
+        public UsuarioRoles getNivel() {
+                return nivel;
         }
 
-        public void setAdm(Boolean adm) {
-                isAdm = adm;
+        public void setNivel(UsuarioRoles nivel) {
+                this.nivel = nivel;
         }
 
         public DentistaEntity getDentista() {
@@ -91,5 +104,42 @@ public class UsuarioEntity {
 
         public void setPaciente(PacienteEntity paciente) {
                 this.paciente = paciente;
+        }
+
+        @Override
+        public Collection<? extends GrantedAuthority> getAuthorities() {
+                SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(nivel.name());
+
+                return Collections.singleton(grantedAuthority);
+        }
+
+        @Override
+        public String getPassword() {
+                return null;
+        }
+
+        @Override
+        public String getUsername() {
+                return null;
+        }
+
+        @Override
+        public boolean isAccountNonExpired() {
+                return true;
+        }
+
+        @Override
+        public boolean isAccountNonLocked() {
+                return true;
+        }
+
+        @Override
+        public boolean isCredentialsNonExpired() {
+                return true;
+        }
+
+        @Override
+        public boolean isEnabled() {
+                return true;
         }
 }

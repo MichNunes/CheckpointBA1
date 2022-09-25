@@ -63,8 +63,8 @@ public class DentistaController {
         dentistaService.excluirDentista(id);
     }
 
-    @PutMapping("{id}/alterar")
-    public O
+//    @PutMapping("{id}/alterar")
+//    public O
 
 }
 

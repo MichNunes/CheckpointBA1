@@ -2,6 +2,7 @@ package com.dh.clinicaOdonto.controller;
 
 import com.dh.clinicaOdonto.entity.UsuarioEntity;
 import com.dh.clinicaOdonto.service.UsuarioService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @RequestMapping("usuario/")
 public class UsuarioController {
     private final UsuarioService usuarioService;
+    private static BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public UsuarioController(UsuarioService usuarioService){
         this.usuarioService = usuarioService;
@@ -17,6 +19,7 @@ public class UsuarioController {
 
     @PostMapping("adicionar")
     public UsuarioEntity adicionarUsuario(@RequestBody UsuarioEntity usuario){
+        usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getSenha()));
         return usuarioService.addUsuario(usuario);
     }
 
