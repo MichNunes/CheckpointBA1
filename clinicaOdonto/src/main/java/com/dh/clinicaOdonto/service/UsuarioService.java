@@ -19,14 +19,15 @@ public class UsuarioService {
     @Autowired
     public UsuarioService (IUsuarioRepository usuarioRepository){this.usuarioRepository = usuarioRepository;}
 
-    public String addUsuario (UsuarioDTO usuario){
+    public Long addUsuario (UsuarioDTO usuario){
         if(usuario != null){
             logger.info("Verificando se usuario já esta cadastrado");
             usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
-            return (UsuarioEntity) usuarioRepository.save(usuario.toEntity()).getId();
+//            return (UsuarioEntity) usuarioRepository.save(usuario.toEntity()).getId();
+            return usuarioRepository.save(usuario.toEntity()).getId();
         }
         logger.info("New usuario");
-        return new UsuarioEntity();
+        return new UsuarioEntity().getId();
     }
 
     public List<UsuarioEntity> listarUsuarios(){

@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
-@RequestMapping("usuario/")
+@RequestMapping("usuario")
 public class UsuarioController {
     private final UsuarioService usuarioService;
 
@@ -17,22 +17,22 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @PostMapping("adicionar")
-    public String adicionarUsuario(@RequestBody UsuarioDTO usuario){
+    @PostMapping
+    public Long adicionarUsuario(@RequestBody UsuarioDTO usuario){
         return usuarioService.addUsuario(usuario);
     }
 
-    @GetMapping("listar")
+    @GetMapping
     public List<UsuarioEntity> listarUsuarios(){
         return usuarioService.listarUsuarios();
     }
 
-    @DeleteMapping("{id}/excluir")
+    @DeleteMapping("{id}")
     public void excluirUsuario(@PathVariable Long id){
         usuarioService.excluirUsuario(id);
     }
 
-    @PutMapping("alterar")
+    @PutMapping
     public UsuarioEntity alterarUsuario(@RequestBody UsuarioEntity usuario){
         return usuarioService.alterarUsuario(usuario);
     }

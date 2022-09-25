@@ -22,7 +22,9 @@ import java.util.Set;
 public class PacienteController {
     @Autowired
     private IUsuarioRepository usuarioRepository;
+    @Autowired
     private IAgendaRepository agendaRepository;
+    @Autowired
     private IEnderecoRepository enderecoRepository;
     private final PacienteService pacienteService;
     public PacienteController(PacienteService pacienteService) {

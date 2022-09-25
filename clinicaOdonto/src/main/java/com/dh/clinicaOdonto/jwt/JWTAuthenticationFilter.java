@@ -29,7 +29,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
 //Usariamos caso quisessemos usar uma url para login diferente da que o spring nos fornece
-//        setFilterProcessesUrl("/api/services/controller/user/login");
+        setFilterProcessesUrl("/usuario/login");
     }
 
     @Override
@@ -40,7 +40,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            creds.getNome(),
+                            creds.getUsuario(),
                             creds.getSenha(),
                             new ArrayList<>())
             );
@@ -55,11 +55,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) throws IOException {
         String token = JWT.create()
-                .withSubject(((UsuarioEntity) auth.getPrincipal()).getNome())
+                .withSubject(((UsuarioEntity) auth.getPrincipal()).getUsuario())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SECRET.getBytes()));
 
-        String body = ((UsuarioEntity) auth.getPrincipal()).getNome() + " " + token;
+        String body = ((UsuarioEntity) auth.getPrincipal()).getUsuario() + " " + token;
 
         res.getWriter().write(body);
         res.getWriter().flush();
