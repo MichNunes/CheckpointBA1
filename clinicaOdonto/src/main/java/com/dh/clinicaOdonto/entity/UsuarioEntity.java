@@ -1,11 +1,21 @@
 package com.dh.clinicaOdonto.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Table(name="usuario")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UsuarioEntity {
 
         @Id
@@ -15,8 +25,8 @@ public class UsuarioEntity {
         private String senha;
         private String nome;
         private String sobrenome;
-        @Column(name="is_adm")
-        private Boolean isAdm;
+        @ManyToMany(fetch = EAGER)
+        private Collection<UsuarioRoles> roles = new ArrayList<>();
 
         @OneToOne
         @Cascade(org.hibernate.annotations.CascadeType.ALL)
@@ -26,70 +36,10 @@ public class UsuarioEntity {
         @Cascade(org.hibernate.annotations.CascadeType.ALL)
         private PacienteEntity paciente;
 
-        public UsuarioEntity() {
-        }
-
-        public Long getId() {
-                return id;
-        }
-
-        public void setId(Long id) {
-                this.id = id;
-        }
-
-        public String getUsuario() {
-                return usuario;
-        }
-
-        public void setUsuario(String usuario) {
+        public UsuarioEntity(String usuario, String senha, String nome, String sobrenome) {
                 this.usuario = usuario;
-        }
-
-        public String getSenha() {
-                return senha;
-        }
-
-        public void setSenha(String senha) {
                 this.senha = senha;
-        }
-
-        public String getNome() {
-                return nome;
-        }
-
-        public void setNome(String nome) {
                 this.nome = nome;
-        }
-
-        public String getSobrenome() {
-                return sobrenome;
-        }
-
-        public void setSobrenome(String sobrenome) {
                 this.sobrenome = sobrenome;
-        }
-
-        public Boolean getAdm() {
-                return isAdm;
-        }
-
-        public void setAdm(Boolean adm) {
-                isAdm = adm;
-        }
-
-        public DentistaEntity getDentista() {
-                return dentista;
-        }
-
-        public void setDentista(DentistaEntity dentista) {
-                this.dentista = dentista;
-        }
-
-        public PacienteEntity getPaciente() {
-                return paciente;
-        }
-
-        public void setPaciente(PacienteEntity paciente) {
-                this.paciente = paciente;
         }
 }
