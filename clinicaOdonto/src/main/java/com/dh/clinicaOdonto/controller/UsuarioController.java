@@ -4,6 +4,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.dh.clinicaOdonto.controller.dto.DataUsuarioDTO;
+import com.dh.clinicaOdonto.controller.dto.UsuarioDTO;
 import com.dh.clinicaOdonto.entity.UsuarioEntity;
 import com.dh.clinicaOdonto.entity.UsuarioRoles;
 import com.dh.clinicaOdonto.service.Impl.UsuarioServiceImpl;
@@ -31,20 +33,18 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class UsuarioController {
     private final UsuarioServiceImpl usuarioServiceImpl;
 
-    @GetMapping("/todos")
+    @GetMapping("/listar")
     public ResponseEntity<List<UsuarioEntity>> listUsers(){
         return ResponseEntity.ok().body(usuarioServiceImpl.getUsuarios());
     }
 
-    @PostMapping("/adicionar")
-    public ResponseEntity<UsuarioEntity> saveUser(@RequestBody UsuarioEntity usuario){
-
+    @PostMapping()
+    public ResponseEntity<UsuarioEntity> saveUser(@RequestBody UsuarioDTO usuario){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/usuario/adicionar").toUriString());
-        return ResponseEntity.created(uri).body(usuarioServiceImpl.salvarUsuario(usuario));
+        return ResponseEntity.created(uri).body(usuarioServiceImpl.salvarUsuario(usuario.toEntity()));
     }
-    @PostMapping("/role/adicionar")
+    @PostMapping("/role")
     public ResponseEntity<UsuarioRoles> saveRole(@RequestBody UsuarioRoles roles){
-
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/usuario/role/adicionar").toUriString());
         return ResponseEntity.created(uri).body(usuarioServiceImpl.salvarRole(roles));
     }
@@ -53,10 +53,15 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuarioServiceImpl.getUsuario(username));
     }
 
-    @PostMapping("/role/adicionaraousuario")
+    @PostMapping("/role/vincular")
     public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form){
         usuarioServiceImpl.addRoleToUsuario(form.getUsername(), form.getRole());
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping()
+    public ResponseEntity<DataUsuarioDTO> updateUser(@RequestBody UsuarioDTO usuario){
+        return ResponseEntity.ok().body(usuarioServiceImpl.atualizarUsuario(usuario.toEntity()));
     }
 
     @GetMapping("/token/refresh")

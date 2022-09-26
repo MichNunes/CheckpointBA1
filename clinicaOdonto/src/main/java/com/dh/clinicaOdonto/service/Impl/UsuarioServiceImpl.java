@@ -1,5 +1,6 @@
 package com.dh.clinicaOdonto.service.Impl;
 
+import com.dh.clinicaOdonto.controller.dto.DataUsuarioDTO;
 import com.dh.clinicaOdonto.entity.UsuarioEntity;
 import com.dh.clinicaOdonto.entity.UsuarioRoles;
 import com.dh.clinicaOdonto.repository.IUsuarioRepository;
@@ -97,5 +98,10 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
     @Override
     public List<UsuarioEntity> getUsuarios() {
         return usuarioRepository.findAll();
+    }
+
+    @Override
+    public DataUsuarioDTO atualizarUsuario(UsuarioEntity usuario) {
+        return usuarioRepository.saveAndFlush(usuario).toDataUsuarioDTO();
     }
 }

@@ -1,5 +1,6 @@
 package com.dh.clinicaOdonto.entity;
 
+import com.dh.clinicaOdonto.controller.dto.DataUsuarioDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,5 +42,9 @@ public class UsuarioEntity {
                 this.senha = senha;
                 this.nome = nome;
                 this.sobrenome = sobrenome;
+        }
+
+        public DataUsuarioDTO toDataUsuarioDTO(){
+                return new DataUsuarioDTO(this.usuario, this.nome, this.sobrenome, this.roles, this.dentista, this.paciente);
         }
 }
