@@ -13,4 +13,5 @@ public interface UsuarioService {
     UsuarioEntity getUsuario(String usuario);
     List<UsuarioEntity>getUsuarios();
     DataUsuarioDTO atualizarUsuario(UsuarioEntity usuario);
+    void excluirUsuario(String username);
 }

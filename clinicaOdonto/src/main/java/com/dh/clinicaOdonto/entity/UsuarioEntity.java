@@ -22,6 +22,7 @@ public class UsuarioEntity {
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         private Long id;
+        @Column(nullable = false, unique = true)
         private String usuario;
         private String senha;
         private String nome;

@@ -31,27 +31,6 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
     private final IUsuarioRoles rolesRepository;
     private final PasswordEncoder passwordEncoder;
 
-//    public UsuarioServiceImpl(IUsuarioRepository usuarioRepository){this.usuarioRepository = usuarioRepository;}
-
-//    public UsuarioEntity addUsuario (UsuarioEntity usuario){
-//        if(usuario != null){
-//            logger.info("Verificando se usuario já esta cadastrado");
-//            return (UsuarioEntity) usuarioRepository.save(usuario);
-//        }
-//        logger.info("New usuario");
-//        return new UsuarioEntity();
-//    }
-//
-//    public List<UsuarioEntity> listarUsuarios(){
-//        return usuarioRepository.findAll();
-//    }
-//
-//    public void excluirUsuario(Long id){usuarioRepository.deleteById(id);}
-//
-//    public UsuarioEntity alterarUsuario(UsuarioEntity usuario){
-//        return usuarioRepository.saveAndFlush(usuario);
-//    }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UsuarioEntity usuario = usuarioRepository.findByUsuario(username);
@@ -103,5 +82,10 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
     @Override
     public DataUsuarioDTO atualizarUsuario(UsuarioEntity usuario) {
         return usuarioRepository.saveAndFlush(usuario).toDataUsuarioDTO();
+    }
+
+    @Override
+    public void excluirUsuario(String username) {
+        usuarioRepository.delete(usuarioRepository.findByUsuario(username));
     }
 }

@@ -9,7 +9,9 @@ import com.dh.clinicaOdonto.repository.IAgendaRepository;
 import com.dh.clinicaOdonto.repository.IEnderecoRepository;
 import com.dh.clinicaOdonto.repository.IUsuarioRepository;
 import com.dh.clinicaOdonto.service.PacienteService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -18,19 +20,19 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("paciente/")
 public class PacienteController {
     @Autowired
     private IUsuarioRepository usuarioRepository;
+    @Autowired
     private IAgendaRepository agendaRepository;
+    @Autowired
     private IEnderecoRepository enderecoRepository;
     private final PacienteService pacienteService;
-    public PacienteController(PacienteService pacienteService) {
-        this.pacienteService = pacienteService;
-    }
 
-    @PostMapping("adicionar")
-    public PacienteEntity adicionarPaciente(@RequestBody PacienteDTO pacienteDTO){
+    @PostMapping()
+    public ResponseEntity<PacienteEntity> adicionarPaciente(@RequestBody PacienteDTO pacienteDTO){
         UsuarioEntity usuario = usuarioRepository.findById(pacienteDTO.getIdUsuario()).orElseThrow(EntityNotFoundException::new);
 
         if(usuario.getPaciente() != null){
@@ -45,38 +47,39 @@ public class PacienteController {
             usuarioRepository.save(usuario);
         }
 
-        return usuario.getPaciente();
+        return ResponseEntity.ok().body(usuario.getPaciente());
     }
 
-    @GetMapping("listar")
-    public List<PacienteEntity> listarPacientes(){
-        return pacienteService.listarPacientes();
+    @GetMapping()
+    public ResponseEntity<List<PacienteEntity>> listarPacientes(){
+        return ResponseEntity.ok().body(pacienteService.listarPacientes());
     }
 
     @GetMapping("{id}/consultas")
-    public Optional<List<AgendaEntity>> listarConsultas(@PathVariable Long id){
-        return agendaRepository.findByPaciente(new PacienteEntity(id));
+    public ResponseEntity<Optional<List<AgendaEntity>>> listarConsultas(@PathVariable Long id){
+        return ResponseEntity.ok().body(agendaRepository.findByPaciente(new PacienteEntity(id)));
     }
 
     @GetMapping("{id}/dados")
-    public Optional<UsuarioEntity> listarDados(@PathVariable Long id){
-        return usuarioRepository.findByPaciente(new PacienteEntity(id));
+    public ResponseEntity<Optional<UsuarioEntity>> listarDados(@PathVariable Long id){
+        return ResponseEntity.ok().body(usuarioRepository.findByPaciente(new PacienteEntity(id)));
     }
 
     @GetMapping("{id}/enderecos")
-    public Optional<Set<EnderecoDTO>> listarEnderecos(@PathVariable Long id){
-        return enderecoRepository.findByPaciente(new PacienteEntity(id));
+    public ResponseEntity<Optional<Set<EnderecoDTO>>> listarEnderecos(@PathVariable Long id){
+        return ResponseEntity.ok().body(enderecoRepository.findByPaciente(new PacienteEntity(id)));
     }
 
     @DeleteMapping("{id}/excluir")
-    public void excluirPaciente(@PathVariable Long id){
+    public ResponseEntity<?> excluirPaciente(@PathVariable Long id){
         pacienteService.excluirPaciente(id);
+        return ResponseEntity.ok().build();
     }
 
 
-    @PutMapping("alterar")
-    public PacienteEntity alterarPaciente(@RequestBody PacienteEntity paciente){
-        return pacienteService.alterarPaciente(paciente);
+    @PutMapping()
+    public ResponseEntity<PacienteEntity> alterarPaciente(@RequestBody PacienteEntity paciente){
+        return ResponseEntity.ok().body(pacienteService.alterarPaciente(paciente));
     }
 
 }

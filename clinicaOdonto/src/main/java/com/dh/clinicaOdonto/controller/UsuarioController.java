@@ -12,6 +12,7 @@ import com.dh.clinicaOdonto.service.Impl.UsuarioServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,12 +29,13 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("usuario/")
 public class UsuarioController {
     private final UsuarioServiceImpl usuarioServiceImpl;
 
-    @GetMapping("/listar")
+    @GetMapping("listar")
     public ResponseEntity<List<UsuarioEntity>> listUsers(){
         return ResponseEntity.ok().body(usuarioServiceImpl.getUsuarios());
     }
@@ -43,17 +45,20 @@ public class UsuarioController {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/usuario/adicionar").toUriString());
         return ResponseEntity.created(uri).body(usuarioServiceImpl.salvarUsuario(usuario.toEntity()));
     }
-    @PostMapping("/role")
+
+    @GetMapping("dados/{username}")
+    public ResponseEntity<UsuarioEntity> dataUser(@PathVariable String username){
+        log.info("Pesquisando pelo usuario {}", username);
+        return ResponseEntity.ok().body(usuarioServiceImpl.getUsuario(username));
+    }
+
+    @PostMapping("role")
     public ResponseEntity<UsuarioRoles> saveRole(@RequestBody UsuarioRoles roles){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/usuario/role/adicionar").toUriString());
         return ResponseEntity.created(uri).body(usuarioServiceImpl.salvarRole(roles));
     }
-    @GetMapping("/dados")
-    public ResponseEntity<UsuarioEntity> dataUser(@RequestBody String username){
-        return ResponseEntity.ok().body(usuarioServiceImpl.getUsuario(username));
-    }
 
-    @PostMapping("/role/vincular")
+    @PostMapping("role/vincular")
     public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form){
         usuarioServiceImpl.addRoleToUsuario(form.getUsername(), form.getRole());
         return ResponseEntity.ok().build();
@@ -64,7 +69,13 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuarioServiceImpl.atualizarUsuario(usuario.toEntity()));
     }
 
-    @GetMapping("/token/refresh")
+    @DeleteMapping()
+    public ResponseEntity<?> excluirUsuario(@RequestBody UsuarioDTO usuario){
+        usuarioServiceImpl.excluirUsuario(usuario.getUsuario());
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
 
@@ -107,10 +118,8 @@ public class UsuarioController {
         else{
             throw new RuntimeException("Refresh Token is missing");
         }
-
     }
 }
-
 @Data
 class RoleToUserForm{
     private String username;

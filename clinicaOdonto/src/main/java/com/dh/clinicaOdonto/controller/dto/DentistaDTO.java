@@ -1,22 +1,18 @@
 package com.dh.clinicaOdonto.controller.dto;
 
+import com.dh.clinicaOdonto.entity.DentistaEntity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class DentistaDTO {
     private Integer matricula;
     private  Long idUsuario;
 
-    public DentistaDTO(){
-    }
-
-    public DentistaDTO(Integer matricula, Long idUsuario) {
-        this.matricula = matricula;
-        this.idUsuario = idUsuario;
-    }
-
-    public Integer getMatricula() {
-        return matricula;
-    }
-
-    public Long getIdUsuario() {
-        return idUsuario;
+    public DentistaEntity toEntity(){
+       return new DentistaEntity(this.idUsuario, this.matricula);
     }
 }

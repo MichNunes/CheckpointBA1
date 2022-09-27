@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
@@ -39,8 +39,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http.authorizeRequests().antMatchers(POST,"/usuario/adicionar", "/usuario/token/refresh/**").permitAll();
+        //Permissão para qualquer usuário
+        http.authorizeRequests().antMatchers(POST, "/usuario/token/refresh").permitAll();
+        //Permissão no Usuario Controller
+        http.authorizeRequests().antMatchers("/usuario/listar", "/role/**").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers(POST,"/usuario").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers(PUT,"/usuario/**").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers(DELETE,"/usuario/**").hasRole("ADMIN");
+        //Permissão no Paciente
+        http.authorizeRequests().antMatchers(GET,"/dentista").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers(POST,"/dentista/**").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers(PUT,"/dentista/**").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers(DELETE,"/dentista/**").hasRole("ADMIN");
+        //Permissão no Dentista
+        http.authorizeRequests().antMatchers(GET,"/dentista").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers(POST,"/dentista/**").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers(PUT,"/dentista/**").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers(DELETE,"/dentista/**").hasRole("ADMIN");
+        //Permissão no Endereço
+        http.authorizeRequests().antMatchers(POST,"/endereco").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers(PUT,"/endereco").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers(DELETE,"/endereco").hasRole("ADMIN");
+        //Permissão na agenda
+        http.authorizeRequests().antMatchers(GET,"/agenda").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers(DELETE,"/agenda").hasRole("ADMIN");
+        //Permissão para qualquer outro caminho não supracitados - qualquer usuário autenticado
         http.authorizeRequests().anyRequest().authenticated();
 
         http.addFilter(customAuthenticationFilter);

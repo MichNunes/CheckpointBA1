@@ -2,32 +2,35 @@ package com.dh.clinicaOdonto.controller;
 
 import com.dh.clinicaOdonto.entity.AgendaEntity;
 import com.dh.clinicaOdonto.service.AgendaService;
+import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("agenda/")
 public class AgendaController {
     private final AgendaService agendaService;
-    public AgendaController(AgendaService agendaService) {
-        this.agendaService = agendaService;
-    }
 
-    @PostMapping("adicionar")
+    @PostMapping()
     @Transactional
-        public AgendaEntity addAgenda (@RequestBody AgendaEntity agenda){
-        return agendaService.agendarConsulta(agenda);
+    public ResponseEntity<AgendaEntity> addAgenda (@RequestBody AgendaEntity agenda){
+        return ResponseEntity.ok().body(agendaService.agendarConsulta(agenda));
     }
 
-    @GetMapping("listar")
-    public List<AgendaEntity> listarConsultas(){
-        return agendaService.listarConsultas();
+    @GetMapping()
+    public ResponseEntity<List<AgendaEntity>> listarConsultas(){
+        return ResponseEntity.ok().body(agendaService.listarConsultas());
     }
 
     @DeleteMapping("{id}/excluir")
-    public void excluirAgenda(@PathVariable Long id){
-        agendaService.excluirAgenda(id);}
+    public ResponseEntity<?> excluirAgenda(@PathVariable Long id){
+        agendaService.excluirAgenda(id);
+        return ResponseEntity.ok().build();
+    }
 
 }
