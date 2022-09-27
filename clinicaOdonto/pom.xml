@@ -91,6 +91,12 @@
 			<version>2.2.3</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.6.9</version>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/com.auth0/java-jwt -->
 		<dependency>
